@@ -19,9 +19,18 @@ public abstract class Carte {
 
         switch (choix) {
             case 0:
-            	carte =  new CarteAttaque();
+            {
+            	int vie  = random.nextInt(5) ; 
+            	carte =  new CarteAttaque(vie);
+            	
+            	break ;
+            }
             case 1:
-            	carte =  new CartePopularite(2) ;
+            {
+            	int popularite = random.nextInt(5);
+            	carte =  new CartePopularite(popularite) ;
+            	break ;
+            }
             case 2:
             	carte =  new CarteSpecial() ; 
         }
@@ -31,5 +40,13 @@ public abstract class Carte {
 		
 	
 	}
+	
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + " "+ getVie() +" vie(s)" ; 
+		
+	}
+	
+	
 
 }

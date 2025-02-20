@@ -13,8 +13,12 @@ public class CartePopularite extends Carte {
 	
 	private void setPopularite(int popularite) {
 		this.popularite = popularite;
+	} 
+	@Override
+	public String toString() {
+		return super.toString() + " " + getPopularite() + " Popularité(s) " ;
+		
 	}
-	
 	
 
 }

@@ -1,8 +1,5 @@
 package cartes;
 
-import java.util.Random;
-
-import personnages.Joueur;
 
 public class GestionnaireCartes {
 	
@@ -14,41 +11,71 @@ public class GestionnaireCartes {
 	public GestionnaireCartes() {
 		
 		for (int i = 0 ; i<4 ; i++) {
-			piocherCarte(4) ; 
+			piocherCarte() ; 
 		}
 		
 	}
 
-	public Carte ChoisirCarte(Joueur joueur) {
+	public Carte ChoisirCarte(int choix) {
 		//afficher la liste de carte chisir une carteet choisire une numero de cartre
-		System.out.println(joueur +  " Choisi une carte ");
-		
-		
-		
-		return null ; 
-	}
-	
-	private Carte getCarte(int index) {
-		return cartes[index] ; 
-	}
-	
-	
-	public void  piocherCarte(int nombre) {
-		
-		int totalCarte = this.nombreCarte + nombre ; 
-		
-		if(totalCarte > nombreCarteMax ) {
-			return ; 
+		Carte carte = null ;
+		if(choix>=0 & choix < nombreCarte) {
+			carte = cartes[choix] ; 
+			nombreCarte-=1 ;
 		}
 		
-		for(int i = nombreCarte ; i < totalCarte ; i++)
-)		{	
-			//choisir une carte de manier aleatoire
-			 cartes[i] = Carte.CreateCarte() ; 
+		cartes[choix]=null ; 
+		
+		
+		return carte ; 
+		
+	}
+	
+	
+	//piocher un nombre de carte bien precis sans depassser la limite
+	public void  piocherCarte() {
+		
+		Carte newCarte  = Carte.CreateCarte() ;
+		
+		
+		
+		int totalCarte = this.nombreCarte + 1 ; 
+		
+		
+
+		
+		//rangement des carte
+		for(int i = 0 ; i < totalCarte  ; i++)
+		{	
+			if(cartes[i] == null)
+			{
+				cartes[i] = newCarte ;  
+				break  ;
+			}
+			
 		}
 		
 		this.nombreCarte = totalCarte ;
 		
 	}
+	public int getNombreCarte() {
+		return nombreCarte;
+	}
+
+	public Carte[] getCartes() {
+		return cartes ;
+	}
+	public String[] getInfoCartes() {
+		Carte[] cartes = getCartes();
+		String[] infosCartes = new String[cartes.length] ; 
+		for(int i = 0 ; i<cartes.length ; i++ ) {
+			if(cartes[i]!=null) {
+				infosCartes[i] = cartes[i].toString() ; 
+			}
+		}
+		return infosCartes ;
+		
+	}
 	
 }
+	
