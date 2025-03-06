@@ -56,12 +56,10 @@ public class Joueur {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return nom.toString() ; 
 	}
 
 	public boolean isDead() {
-		// TODO Auto-generated method stub
 		return getVie() == 0  ||  getPopularite() >= 5  ; 
 	}
 	

@@ -1,9 +1,9 @@
 package cartes;
 
-public class CartePopularite extends Carte {
+public class Popularite extends Carte {
 	private int popularite ; 
 	
-	CartePopularite(int popularite){
+	Popularite(int popularite){
 		setPopularite(popularite);
 	}
 	

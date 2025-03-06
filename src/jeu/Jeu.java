@@ -1,10 +1,9 @@
 package jeu;
 
-import java.util.Scanner;
-
+import cartes.Attaque;
 import cartes.Carte;
-import cartes.CarteAttaque;
-import cartes.CartePopularite;
+import cartes.GestionnaireCartes;
+import cartes.Popularite;
 import personnages.Joueur;
 import personnages.Nom;
 import uix.Afficheur;
@@ -14,6 +13,9 @@ public class Jeu {
     private String nom;
     private Joueur joueur1 = new Joueur(Nom.BILL);
     private Joueur joueur2 = new Joueur(Nom.JACK);
+    
+    
+    
     private boolean isTurnOfPlayer1 = true;
     
     
@@ -42,46 +44,29 @@ public class Jeu {
     	
     	
     	afficheur.startJeu() ; 
-    	
+    	GestionnaireCartes trouche ;
     	do {
 	        Joueur joueurActuel = isTurnOfPlayer1 ? joueur1 : joueur2;
 	        Joueur adversaire = isTurnOfPlayer1 ? joueur2 : joueur1;
+	        trouche = joueurActuel.getTroucheCartes() ; 
 	        
-	        joueurActuel.getTroucheCartes().piocherCarte() ;
-	     
+	        trouche.piocherCarte() ;
 	        afficheur.displayInfoJoueur(joueurActuel.getInfo());
-	
-	        afficheur.displayCarte(joueurActuel.getTroucheCartes().getInfoCartes());
-	        Scanner  scan = new Scanner(System.in);
-	        
-	        int choix = scan.nextInt() ; 
-	        Carte carte = joueurActuel.getTroucheCartes().ChoisirCarte(choix);
-	        if(carte == null) {
-	        	System.out.println("ERREUR CHOISIR UNE BONNE VALEUR !!!!");
-	        	continue ;
-	        }
-	        else if (carte instanceof CarteAttaque) {
-	            adversaire.setVie(adversaire.getVie() - carte.getVie() ) ; 
-	        } else if (carte instanceof CartePopularite) {
-	            joueurActuel.setPopularite(joueurActuel.getPopularite() + ((CartePopularite) carte).getPopularite());
-	        }
-	        
-	        
-	
+	        afficheur.displayCarte(trouche.getInfoCartes());
+	        int  choix = afficheur.choisirCarte();
+	        Carte carte = trouche.choisirCarte(choix);
+	        traiterCarte(carte, joueurActuel, adversaire);
 	        isTurnOfPlayer1 = !isTurnOfPlayer1;
 	        	
     	}
     	while(jeuContinue());
     	
     	
-    	Joueur gagnant = null ;
-    	
+    	Joueur gagnant = joueur1 ;
     	if(joueur1.getVie() == 0) {
     		gagnant = joueur2 ; 
     	}
-    	else if (joueur2.getVie() == 0){
-    		gagnant = joueur1 ;  	
-    	}
+
     	
     	afficheur.displayWinner(gagnant.getNom().toString()) ; 
     	 
@@ -90,16 +75,24 @@ public class Jeu {
     private boolean jeuContinue() {
     	boolean continuer = true ; 
     	
-    	if(joueur1.isDead())  {
+    	if(joueur1.isDead() || joueur2.isDead())  {
     		continuer = false  ; 
     	}
-    	else if (joueur2.isDead()){
-    		continuer = false  ;  	
-    	}
+    	
     	   	
 		return continuer ;
 	}
-    
+
+    void traiterCarte(Carte carte , Joueur joueurActuel , Joueur adversaire) {
+    	if(carte instanceof Popularite) {
+    		Popularite cart = (Popularite) carte ;
+    		joueurActuel.setPopularite(joueurActuel.getPopularite() + cart.getPopularite());
+    	}
+    	else if (carte instanceof Attaque) {
+            adversaire.setVie(adversaire.getVie() - carte.getVie() ) ; 
+        }
+    }
+
 
 
 
