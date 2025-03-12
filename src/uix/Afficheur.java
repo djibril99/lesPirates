@@ -5,10 +5,8 @@ import java.util.Scanner;
 public class Afficheur implements IAfficheur {
 	@Override
 	public void displayCarte(String [] cartes) {
-		
 		for(int i = 0 ; i< cartes.length ; i++) 
 				System.out.println("\t"+i +") "+cartes[i]);
-		
 		
 	}
 	@Override
