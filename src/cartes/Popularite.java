@@ -12,12 +12,16 @@ public class Popularite extends Carte {
 	}
 	
 	private void setPopularite(int popularite) {
-		this.popularite = popularite;
+			if(this.popularite>0) {
+				this.popularite = popularite;
+			}
+			else {
+				this.popularite = 0 ;
+			}
 	} 
 	@Override
 	public String toString() {
-		return super.toString() + " " + getPopularite() + " Popularité(s) " ;
-		
+		return this.getClass().getSimpleName() + " " + getPopularite() + " Popularité(s) " ;
 	}
 	
 

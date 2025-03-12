@@ -2,6 +2,7 @@ package jeu;
 
 import cartes.Attaque;
 import cartes.Carte;
+import cartes.Diffamation;
 import cartes.GestionnaireCartes;
 import cartes.Popularite;
 import personnages.Joueur;
@@ -84,11 +85,19 @@ public class Jeu {
 	}
 
     void traiterCarte(Carte carte , Joueur joueurActuel , Joueur adversaire) {
-    	if(carte instanceof Popularite) {
+    	boolean isDiffamation = carte instanceof Diffamation ;
+    	boolean isPopularite = carte instanceof Popularite ;
+    	boolean isAttaque = carte instanceof Attaque ;
+    	if(isDiffamation) {
+    		Diffamation cart = (Diffamation) carte ;
+    		int valeur =  adversaire.getPopularite()  - cart.getPopularite() ; 
+    		adversaire.setPopularite(valeur);
+    	}
+    	 if(isPopularite) {
     		Popularite cart = (Popularite) carte ;
     		joueurActuel.setPopularite(joueurActuel.getPopularite() + cart.getPopularite());
     	}
-    	else if (carte instanceof Attaque) {
+    	if (isAttaque) {
             adversaire.setVie(adversaire.getVie() - carte.getVie() ) ; 
         }
     }
