@@ -32,7 +32,7 @@ public class GestionnaireCartes {
 	
 	public void  piocherCarte() {
 		
-		Carte newCarte  = genererCarte() ;
+		
 		
 		
 		
@@ -42,7 +42,7 @@ public class GestionnaireCartes {
 		{	
 			if(cartes[i] == null)
 			{
-				cartes[i] = newCarte ;  
+				cartes[i] = genererCarte() ;  
 				break  ;
 			}
 			
@@ -70,7 +70,7 @@ public class GestionnaireCartes {
 	private  Carte genererCarte() {
 		
         int choix = random.nextInt(3);
-        int valeur  = random.nextInt(5) ;
+        int valeur  = random.nextInt(1,4) ; 
         Carte carte = null ; 
 
         switch (choix) {

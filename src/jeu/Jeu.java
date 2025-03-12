@@ -5,6 +5,7 @@ import cartes.Carte;
 import cartes.Diffamation;
 import cartes.GestionnaireCartes;
 import cartes.Popularite;
+import cartes.Soin;
 import personnages.Joueur;
 import personnages.Nom;
 import uix.Afficheur;
@@ -84,23 +85,22 @@ public class Jeu {
 		return continuer ;
 	}
 
-    void traiterCarte(Carte carte , Joueur joueurActuel , Joueur adversaire) {
-    	boolean isDiffamation = carte instanceof Diffamation ;
-    	boolean isPopularite = carte instanceof Popularite ;
-    	boolean isAttaque = carte instanceof Attaque ;
-    	if(isDiffamation) {
-    		Diffamation cart = (Diffamation) carte ;
-    		int valeur =  adversaire.getPopularite()  - cart.getPopularite() ; 
-    		adversaire.setPopularite(valeur);
-    	}
-    	 if(isPopularite) {
-    		Popularite cart = (Popularite) carte ;
-    		joueurActuel.setPopularite(joueurActuel.getPopularite() + cart.getPopularite());
-    	}
-    	if (isAttaque) {
-            adversaire.setVie(adversaire.getVie() - carte.getVie() ) ; 
+    void traiterCarte(Carte carte, Joueur joueurActuel, Joueur adversaire) {
+    	
+        if (carte instanceof Diffamation diffamation) {
+            adversaire.setPopularite(adversaire.getPopularite() - diffamation.getPopularite());
+            joueurActuel.setPopularite(joueurActuel.getPopularite() + diffamation.getPopularite());
+        } else if (carte instanceof Popularite popularite) {
+            joueurActuel.setPopularite(joueurActuel.getPopularite() + popularite.getPopularite());
+        }
+        else if (carte instanceof Soin) {
+            adversaire.setVie(adversaire.getVie() + carte.getVie());
+        }
+        else if (carte instanceof Attaque) {
+            adversaire.setVie(adversaire.getVie() - carte.getVie());
         }
     }
+
 
 
 
