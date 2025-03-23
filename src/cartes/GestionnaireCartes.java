@@ -4,14 +4,18 @@ import java.util.Random;
 
 public class GestionnaireCartes {
 	
-	private static final int NOMBRECARTEMAX = 5;
+	public static final int NOMBRECARTEMAX = 5;
+	private static final int NOMBRECARTEGERER = 3 ;
+	private static final int VALEURCARTEMIN = 1 ;
+	private static final int VALEURCARTEMAX = 4 ;
 	
 	private Carte [] cartes = new Carte[NOMBRECARTEMAX] ; 
 	private int nombreCarte = 0 ;
-	Random random = new Random();
+	
+	private Random random = new Random();
 	
 	public GestionnaireCartes() {
-		for (int i = 0 ; i<4 ; i++) {
+		for (int i = 0 ; i<NOMBRECARTEMAX-1; i++) {
 			piocherCarte() ; 
 		}
 	}
@@ -20,30 +24,24 @@ public class GestionnaireCartes {
 		Carte carte = null ;
 		if(choix>=0 && choix < nombreCarte) {
 			carte = cartes[choix] ; 
+			cartes[choix]=null ;
 			nombreCarte-=1 ;
 		}
-		
-		cartes[choix]=null ; 
-		
 		
 		return carte ; 
 		
 	}
 	
 	public void  piocherCarte() {
-		
-		
-		
-		
-		
 		int totalCarte = this.nombreCarte + 1 ; 
-	
-		for(int i = 0 ; i < totalCarte  ; i++)
+		boolean continuer = true ; 
+		for(int i = 0 ; i < totalCarte && continuer  ; i++)
 		{	
 			if(cartes[i] == null)
 			{
-				cartes[i] = genererCarte() ;  
-				break  ;
+				cartes[i] = genererCarte() ; 
+				continuer = false ;
+				
 			}
 			
 		}
@@ -65,19 +63,18 @@ public class GestionnaireCartes {
 			}
 		}
 		return infosCartes ;
-		
 	}
 	private  Carte genererCarte() {
+
 		
-        int choix = random.nextInt(3);
-        int valeur  = random.nextInt(1,4) ; 
+        int choix = random.nextInt(NOMBRECARTEGERER);
+        int valeur  = random.nextInt(VALEURCARTEMIN,VALEURCARTEMAX) ; 
         Carte carte = null ; 
 
         switch (choix) {
             case 0:
             { 
             	carte =  new Attaque(valeur);
-            	
             	break ;
             }
             case 1:
@@ -91,11 +88,7 @@ public class GestionnaireCartes {
             default:
             	carte =  new Popularite(valeur) ;
         }
-		
-		
 		return carte ; 
-		
-	
 	}
 	
 }

@@ -6,7 +6,7 @@ public class Joueur {
 	private Nom nom ;
 	
 	private int vie = 5 ; 
-	private int popularite ; 
+	private int popularite=0 ; 
 	
 	private GestionnaireCartes troucheCartes ; 
 	
@@ -40,6 +40,9 @@ public class Joueur {
 	}
 	public void setPopularite(int popularite) {
 		this.popularite = popularite;
+		if(this.popularite<0) {
+			this.popularite = 0 ;
+		}
 	}
 	
 	public GestionnaireCartes getTroucheCartes() {

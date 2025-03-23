@@ -1,5 +1,7 @@
 package cartes;
 
+import personnages.Joueur;
+
 public class Popularite extends Carte {
 	private int popularite ; 
 	
@@ -12,10 +14,10 @@ public class Popularite extends Carte {
 	}
 	
 	private void setPopularite(int popularite) {
-			if(this.popularite>0) {
-				this.popularite = popularite;
-			}
-			else {
+			
+			this.popularite = popularite;
+			
+			if(this.popularite<0) {
 				this.popularite = 0 ;
 			}
 	} 
@@ -23,6 +25,9 @@ public class Popularite extends Carte {
 	public String toString() {
 		return this.getClass().getSimpleName() + " " + getPopularite() + " Popularité(s) " ;
 	}
-	
+	@Override
+	public void traiterCarte( Joueur joueurActuel, Joueur adversaire) {
+        joueurActuel.setPopularite(joueurActuel.getPopularite() + getPopularite());
+    }
 
 }

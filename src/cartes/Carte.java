@@ -1,5 +1,7 @@
 package cartes;
 
+import personnages.Joueur;
+
 public abstract class Carte {
 	private int vie ; 
 	
@@ -15,7 +17,5 @@ public abstract class Carte {
 		return this.getClass().getSimpleName() + " "+ getVie() +" vie(s)" ; 
 		
 	}
-	
-	
-
+	public abstract void traiterCarte(Joueur joueurActuel, Joueur adversaire);
 }

@@ -2,6 +2,8 @@ package uix;
 
 import java.util.Scanner;
 
+import cartes.GestionnaireCartes;
+
 public class Afficheur implements IAfficheur {
 	@Override
 	public void displayCarte(String [] cartes) {
@@ -26,7 +28,7 @@ public class Afficheur implements IAfficheur {
 		 
 		
 		}
-		while(choix <0 || choix >4 ) ;
+		while(choix <0 || choix >=GestionnaireCartes.NOMBRECARTEMAX  ) ;
 		return choix ;
 	}
 	@Override
